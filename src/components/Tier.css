@@ -1,0 +1,68 @@
+.tier {
+  border: 1px;
+  border-style: solid;
+  display: flex;
+  flex-direction: row;
+}
+
+.tier-header {
+  width: 6rem;
+  max-width: 6rem;
+  min-height: 4.2rem;
+  text-align: center;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tier-header > p{
+  margin: 0px;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.tier-header-buttons {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+}
+
+.tier-header-buttons > button {
+  cursor: pointer;
+  padding: 1px;
+  min-height: 0px;
+  display: flex;
+  align-items: center;
+  color: var(--color-background);
+}
+.tier-header-buttons > button:hover {
+  background-color: lightgrey;
+}
+
+.tier-contents {
+  width: 100%;
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.1rem;
+}
+
+.popup-label {
+  margin-bottom: 0.5rem;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  display: block;
+}
+
+@media only screen and (max-width: 600px) {
+  .tier-header {
+    width: 8rem;
+  }
+}

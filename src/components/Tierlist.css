@@ -1,0 +1,100 @@
+.tierlist-container {
+  border: 1px;
+  border-style: solid;
+  padding: 1rem;
+  margin: 1rem 4rem 1rem 4rem;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:  "info desc"
+                        "item item";
+}
+
+.tierlist-container h1 {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.tierlist-info-container > p {
+  margin: 0 3rem 1rem 3rem;
+  text-align: center;
+}
+
+.tierlist-info-container {
+  grid-area: info;
+  border: 1px;
+  border-style: solid;
+  padding: 1rem;
+}
+
+
+.tierlist-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tierlist-buttons {
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tierlist-buttons > p {
+  margin: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 20rem;
+}
+
+.tierlist-buttons > button {
+  font-size: 1rem;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--color-foreground);
+}
+
+.tierlist-buttons > button:hover {
+  color: lightgray;
+}
+
+.tierlist-items-grid {
+  grid-area: item;
+  height: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 0.1rem;
+  border: 1px;
+  border-style: solid;
+}
+
+.tierlist-desc-container {
+  grid-area: desc;
+}
+
+@media only screen and (max-width: 1500px) {
+  .tierlist-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:  "info"
+                          "item"
+                          "desc";
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .tierlist-container {
+    margin: 0rem;
+  }
+
+  .tierlist-buttons > p {
+    max-width: 10rem;
+  }
+}
