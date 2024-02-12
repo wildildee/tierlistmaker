@@ -6,12 +6,6 @@ export default function App() {
 
   // Tierlist data 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/tierlist/:id" element={<Tierlist />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <></>
   );
 }
