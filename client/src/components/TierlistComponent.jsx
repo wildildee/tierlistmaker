@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Tier from './Tier';
 import { ReactSortable } from "react-sortablejs";
-import './Tierlist.css'
+import './TierlistComponent.css'
 import Description from './Description';
 import Item from './Item';
 
-export default function Tierlist({ data }) {
-  const params = new URLSearchParams(new URL(document.location).search);
-  const [unsortedItems, setUnsortedItems] = useState(data.items.map((item, index) => index))
+export default function TierlistComponent({tierlist}) {
+
+  // Create empty list on indices based on the tierlist
+  const [unsortedItems, setUnsortedItems] = useState([]);
   
   const [tiers, setTiers] = useState([
     {"name": "A", "color": "#ff3300", "items": []},
@@ -15,8 +16,42 @@ export default function Tierlist({ data }) {
     {"name": "C", "color": "#33cc33", "items": []},
     {"name": "D", "color": "#0066ff", "items": []}
   ]);
+
   const [selectedItem, setSelectedItem] = useState(-1);
   const [sharelink, setSharelink] = useState("");
+
+  // On updated tierlist reload the unsorted items and load if load string provided
+  useEffect(() => {
+    if(Object.keys(tierlist).length === 0) {
+      return;
+    }
+    setUnsortedItems([...tierlist.items.map((item, index) => index)]);
+    // Load the params from url
+    let load = params.get("load");
+    let tempTiers = JSON.parse(load);
+    if(load != null) {
+      // Load
+      setTiers([...tempTiers]);
+      // Delete any elements in the unselected that appear in the tiers
+      let tempItems = unsortedItems;
+      for(let ti = 0; ti < tempTiers.length; ti++) {
+        for(let ii = 0; ii < tempTiers[ti].items.length; ii++) {
+          let index = tempItems.indexOf(tempTiers[ti].items[ii]);
+          if(index != -1) {
+            tempItems.splice(index, 1); 
+          }
+        }
+      }
+      setUnsortedItems([...tempItems])
+    }
+  }, [tierlist]);
+  
+  if(Object.keys(tierlist).length === 0) {
+    return <></>;
+  }
+
+  // Get the load string from the URL /tierlist/:id/?load=[json]
+  const params = new URLSearchParams(new URL(document.location).search);
 
   const createSharelink = () => {
     params.set("load", JSON.stringify(tiers));
@@ -70,35 +105,14 @@ export default function Tierlist({ data }) {
     }
   }
 
-  useEffect(() => {
-    // Load the params from url
-    let load = params.get("load");
-    let tempTiers = JSON.parse(load);
-    if(load != null) {
-      // Load
-      setTiers([...tempTiers]);
-      // Delete any elements in the unselected that appear in the tiers
-      let tempItems = unsortedItems;
-      for(let ti = 0; ti < tempTiers.length; ti++) {
-        for(let ii = 0; ii < tempTiers[ti].items.length; ii++) {
-          let index = tempItems.indexOf(tempTiers[ti].items[ii]);
-          if(index != -1) {
-            tempItems.splice(index, 1); 
-          }
-        }
-      }
-      setUnsortedItems([...tempItems])
-    }
-  }, []);
-
   return (
     <div className='tierlist-container'>
       <div className='tierlist-info-container'>
-        <h1>{data.name}</h1>
-        <p>{data.author}</p>
+        <h1>{tierlist.name}</h1>
+        <p>{tierlist.author}</p>
         <div className='tierlist-list-container'>
           {tiers.map((tier, index) => 
-            <Tier key={index} tierlistData={data} tiers={tiers} setTierData={setTiers} selected={selectedItem} index={index} rename={rename} changeColor={changeColor} moveTier={moveTier} deleteTier={deleteTier} setSelectedCallback={setSelectedCallback}/>
+            <Tier key={index} tierlistData={tierlist} tiers={tiers} setTierData={setTiers} selected={selectedItem} index={index} rename={rename} changeColor={changeColor} moveTier={moveTier} deleteTier={deleteTier} setSelectedCallback={setSelectedCallback}/>
           )}
         </div>
         <div className='tierlist-buttons'>
@@ -109,10 +123,10 @@ export default function Tierlist({ data }) {
       </div>
       <ReactSortable className='tierlist-items-grid' group="tierlist" list={unsortedItems} setList={setUnsortedItems}>
           {unsortedItems.map(item =>
-            <Item index={item} id={item == selectedItem ? "selected" : ""} item={data.items[item]} setSelectedCallback={setSelectedCallback}/>
+            <Item index={item} id={item == selectedItem ? "selected" : ""} item={tierlist.items[item]} setSelectedCallback={setSelectedCallback}/>
           )}
       </ReactSortable>
-      <Description className='tierlist-desc-container' item={data.items[selectedItem]}/>
+      <Description className='tierlist-desc-container' item={tierlist.items[selectedItem]}/>
     </div>
   );
 }
