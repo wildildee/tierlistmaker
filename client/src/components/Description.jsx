@@ -17,7 +17,7 @@ export default function Description({item}) {
       url(${item.back})`
       }}>
       <h2>{item.name}</h2>
-      <ReactPlayer url={item.video} controls={true}/>
+      <ReactPlayer className='tierlist-video' url={item.video} controls={true}/>
       <Markdown components={{ a: (props) => <a href={props.href} target='_blank'>{props.children}</a>}}>{item.comment}</Markdown>
     </div>
   );
