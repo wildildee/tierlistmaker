@@ -1,4 +1,5 @@
 .tierlist-items-desc {
+  min-width: 640px;
   min-height: 30rem;
   border-width: 1px;
   border-style: solid;
@@ -8,8 +9,4 @@
   padding: 1rem;
   background-size: cover;
   background-position: center;
-}
-
-.tierlist-video {
-  width: 640px;
 }

@@ -23,7 +23,6 @@ router.get("/latest", async (req, res) => {
 
 // Get a single post
 router.get("/:id", async (req, res) => {
-  console.log("yo");
   let collection = await db.collection("tierlists");
   let oid = new BSON.ObjectId(req.params.id);
   let result = await collection.findOne({_id: oid});
