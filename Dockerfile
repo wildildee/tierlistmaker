@@ -1,4 +1,4 @@
-FROM node: 20-alpine
+FROM node:20-alpine
 
 # Create the node_module and build folders
 RUN mkdir -p /home/node/app/client/nodemodules
