@@ -14,18 +14,21 @@ WORKDIR /home/node/app
 COPY client/package*.json ./client
 COPY server/package*.json ./server
 
-# Download the node modules
-USER node
-RUN cd client && npm start
-RUN cd server && npm start
-
 # Copy and set perms
 COPY --chown=node:node . .
+
+# Download the node modules
+USER node
+RUN cd client && npm install
+RUN cd server && npm install
 
 # Build the client layer
 USER node
 RUN cd client && npm run build
 
 EXPOSE 9000
+
+ENV PORT=9000
+ENV URI=mongodb://192.168.2.221:27017
 
 CMD ["node", "server/app.mjs"]
