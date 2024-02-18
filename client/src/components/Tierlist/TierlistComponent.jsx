@@ -106,7 +106,7 @@ export default function TierlistComponent({tierlist}) {
   }
 
   return (
-    <div className='tierlist-container'>
+    <div className='tierlist-container show'>
       <div className='tierlist-info-container'>
         <h1>{tierlist.name}</h1>
         <p>{tierlist.author}</p>

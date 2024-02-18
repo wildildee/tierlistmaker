@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
-import TierlistComponent from '../components/TierlistComponent';
+import TierlistComponent from '../components/Tierlist/TierlistComponent';
 
-export default function Tierlist() {
+export default function Tierlist({backend}) {
   // Get the id of the tierlist from the URL /tierlist/:[id]
   let params = useParams();
 
@@ -11,7 +11,8 @@ export default function Tierlist() {
   useEffect(() => {
     // Use backend to retirieve our data
     const loadTierlist = async () => {
-      let result = await fetch("http://localhost:9000/api/tierlist/" + params.id).then(resp => resp.json());
+      let result = await fetch(backend + "/api/tierlist/" + params.id).then(resp => resp.json());
+
       setTierlist(result);
     }
     loadTierlist();

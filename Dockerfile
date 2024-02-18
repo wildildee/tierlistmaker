@@ -30,5 +30,6 @@ EXPOSE 9000
 
 ENV PORT=9000
 ENV URI=mongodb://192.168.2.221:27017
+ENV BACKEND=anime.kobenibestgirl.ca
 
 CMD ["node", "server/app.mjs"]

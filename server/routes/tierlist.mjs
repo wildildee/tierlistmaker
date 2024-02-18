@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
 // Fetches the latest posts
 router.get("/latest", async (req, res) => {
   let collection = await db.collection("tierlists");
-  let results = await collection.find().sort({_id:1}).limit(5).toArray();
+  let results = await collection.find().sort({_id:1}).limit(10).toArray();
   res.send(results).status(200);
 });
 
