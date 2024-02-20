@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import TierlistPreview from '../components/HomePage/TierlistPreview';
+import "./Home.css";
 
 export default function Home({backend}) {
 
@@ -15,9 +16,9 @@ export default function Home({backend}) {
   }, []);
 
   return (
-    <div className='show'>
+    <div className='latest-container show'>
       <h2>Latest</h2>
-      <div>
+      <div className='latest-list'>
       {tierlists.map(tierlist => 
         <TierlistPreview tierlist={tierlist} />
       )}

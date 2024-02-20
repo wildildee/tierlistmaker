@@ -1,0 +1,20 @@
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 3rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-foreground);
+  padding: 0.5rem;
+  background-size: cover;
+  background-position: center;
+}
+
+.preview-container > a {
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+.preview-container > a >  * {
+  margin: 0px;
+}

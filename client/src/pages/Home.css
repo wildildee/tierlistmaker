@@ -1,0 +1,17 @@
+h2 {
+  margin: 0rem 0rem 0.5rem 0rem;
+}
+
+.latest-container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-foreground);
+  margin: 1rem 4rem;
+  padding: 1rem;
+}
+
+.latest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}

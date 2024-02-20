@@ -4,21 +4,38 @@ import { BSON } from "mongodb";
 
 const router = express.Router();
 
-// Get a list of 50 posts
-router.get("/", async (req, res) => {
-  let collection = await db.collection("tierlist");
-  let results = await collection.find({})
-    .limit(50)
-    .toArray();
-
-  res.send(results).status(200);
-});
-
 // Fetches the latest posts
 router.get("/latest", async (req, res) => {
   let collection = await db.collection("tierlists");
-  let results = await collection.find().sort({_id:1}).limit(10).toArray();
+  let skip = 0;
+  if(req.query.page !== undefined) {
+    skip = (req.query.page - 1) * 12
+  }
+  console.log(skip);
+  let results = await collection.find().project({
+    _id: 1,
+    name: 1,
+    author: 1,
+    back_image: 1
+  }).sort({_id:1}).skip(skip).limit(12).toArray();
   res.send(results).status(200);
+});
+
+// Fetches posts based on search
+router.get("/search", async (req, res) => {
+  let collection = await db.collection("tierlists");
+  let results = await collection.find({
+    "name": {$regex: req.query.filter, $options: "i"}
+  }).project({
+    _id: 1,
+    name: 1,
+    author: 1,
+    back_image: 1
+  }).sort({_id:1}).limit(10).toArray();
+  let count = await collection.countDocuments({
+    "name": {$regex: req.query.filter, $options: "i"}
+  });
+  res.send({results: results, count: count}).status(200);
 });
 
 // Get a single post
