@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 export default function App() {
 
   
-  let backend = process.env.NODE_ENV == "development" ? "http://localhost:9000" : "http://192.168.2.221:9000";
+  let backend = process.env.NODE_ENV == "development" ? "http://localhost:9000" : "https://anime.kobenibestgirl.ca";
   console.log(process.env.NODE_ENV);
 
   // Tierlist data 

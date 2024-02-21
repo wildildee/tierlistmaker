@@ -26,6 +26,9 @@ RUN cd server && npm install
 USER node
 RUN cd client && npm run build
 
+# Clean up our dependencies after building the client
+RUN cd client && rm -rf node_modules
+
 EXPOSE 9000
 
 ENV PORT=9000
