@@ -11,6 +11,11 @@ nav {
   align-items: end;
 }
 
+.header-flex a {
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
 nav > a {
   padding: 0.25rem;
   width: 4rem;
@@ -18,8 +23,6 @@ nav > a {
   border-width: 1px 1px 0px 1px;
   border-style: solid;
   border-color: var(--color-foreground);
-  color: var(--color-foreground);
-  text-decoration: none;
   height: 1.25rem;
   cursor: pointer;
 }

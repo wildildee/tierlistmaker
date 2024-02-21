@@ -1,0 +1,30 @@
+.search-container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-foreground);
+  margin: 1rem 4rem;
+  padding: 1rem;
+}
+.search-container h2 {
+  margin: 0px;
+}
+
+.search-bar-search > input {
+  max-width: 10rem;
+}
+
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.search-bar-search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+

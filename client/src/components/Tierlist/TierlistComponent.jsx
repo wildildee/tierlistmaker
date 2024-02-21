@@ -123,7 +123,7 @@ export default function TierlistComponent({tierlist}) {
       </div>
       <ReactSortable className='tierlist-items-grid' group="tierlist" list={unsortedItems} setList={setUnsortedItems}>
           {unsortedItems.map(item =>
-            <Item index={item} id={item == selectedItem ? "selected" : ""} item={tierlist.items[item]} setSelectedCallback={setSelectedCallback}/>
+            <Item key={item} index={item} id={item == selectedItem ? "selected" : ""} item={tierlist.items[item]} setSelectedCallback={setSelectedCallback}/>
           )}
       </ReactSortable>
       <Description className='tierlist-desc-container' item={tierlist.items[selectedItem]}/>

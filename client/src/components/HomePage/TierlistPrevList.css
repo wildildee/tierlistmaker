@@ -1,0 +1,25 @@
+.preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pagebar {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem;
+}
+
+.prev-container a {
+  color: var(--color-foreground);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.prev-container .unavailible {
+  color: var(--color-background);
+  cursor: default;
+}

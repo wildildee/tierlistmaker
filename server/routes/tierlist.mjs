@@ -2,6 +2,8 @@ import express from "express";
 import db from "../db/conn.mjs";
 import { BSON } from "mongodb";
 
+const RESULTS_PER_PAGE = 12;
+
 const router = express.Router();
 
 // Fetches the latest posts
@@ -9,33 +11,44 @@ router.get("/latest", async (req, res) => {
   let collection = await db.collection("tierlists");
   let skip = 0;
   if(req.query.page !== undefined) {
-    skip = (req.query.page - 1) * 12
+    skip = (req.query.page - 1) * RESULTS_PER_PAGE;
   }
-  console.log(skip);
   let results = await collection.find().project({
     _id: 1,
     name: 1,
     author: 1,
     back_image: 1
-  }).sort({_id:1}).skip(skip).limit(12).toArray();
-  res.send(results).status(200);
+  }).sort({_id:1}).skip(skip).limit(RESULTS_PER_PAGE).toArray();
+  let count =  Math.ceil(await collection.countDocuments() / RESULTS_PER_PAGE);
+  res.send({results: results, maxpage: count}).status(200);
 });
 
 // Fetches posts based on search
 router.get("/search", async (req, res) => {
   let collection = await db.collection("tierlists");
+
+  let skip = 0;
+  if(req.query.page !== undefined) {
+    skip = (req.query.page - 1) * RESULTS_PER_PAGE;
+  }
+  let filter = "";
+  if(req.query.filter !== undefined) {
+    filter = req.query.filter;
+  }
+  console.log(filter);
+
   let results = await collection.find({
-    "name": {$regex: req.query.filter, $options: "i"}
+    "name": {$regex: filter, $options: "i"}
   }).project({
     _id: 1,
     name: 1,
     author: 1,
     back_image: 1
-  }).sort({_id:1}).limit(10).toArray();
-  let count = await collection.countDocuments({
-    "name": {$regex: req.query.filter, $options: "i"}
-  });
-  res.send({results: results, count: count}).status(200);
+  }).sort({_id:1}).skip(skip).limit(RESULTS_PER_PAGE).toArray();
+  let count = Math.ceil(await collection.countDocuments({
+    "name": {$regex: filter, $options: "i"}
+  }) / RESULTS_PER_PAGE);
+  res.send({results: results, maxpage: count}).status(200);
 });
 
 // Get a single post

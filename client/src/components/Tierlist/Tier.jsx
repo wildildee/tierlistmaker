@@ -6,7 +6,7 @@ import './Tier.css'
 import Item from './Item';
 import GenericPopup from './GenericPopup';
 
-export default function Tier({ key, tierlistData, tiers, setTierData, selected, index, rename, changeColor, moveTier, deleteTier, setSelectedCallback}) {
+export default function Tier({ tierlistData, tiers, setTierData, selected, index, rename, changeColor, moveTier, deleteTier, setSelectedCallback}) {
   const [tempName, setTempName] = useState('');
   const [tempColor, setTempColor] = useState('#000000');
   const tierData = tiers[index];
@@ -35,14 +35,14 @@ export default function Tier({ key, tierlistData, tiers, setTierData, selected, 
   const [editPopup, setEditPopup] = useState(false);
 
   return (
-    <div key={key} className='tier'>
+    <div className='tier'>
       <div className='tier-header' style={{ "backgroundColor": tierData.color }}>
         <p>{tierData.name}</p>
         <div className='tier-header-buttons'>
-          <button onClick={() => {moveTier(-1, index)}}><FaAngleUp /></button>
-          <button onClick={() => {moveTier(1, index)}}><FaAngleDown /></button>
-          <button onClick={showEditPopup}><FaPencil /></button>
-          <button onClick={() => {deleteTier(index)}}><FaTrash /></button>
+          <button className='icon-button' onClick={() => {moveTier(-1, index)}}><FaAngleUp /></button>
+          <button className='icon-button' onClick={() => {moveTier(1, index)}}><FaAngleDown /></button>
+          <button className='icon-button' onClick={showEditPopup}><FaPencil /></button>
+          <button className='icon-button' onClick={() => {deleteTier(index)}}><FaTrash /></button>
         </div>
       </div>
       <ReactSortable className='tier-contents' group="tierlist" list={tierData.items} setList={setItems} >
