@@ -5,14 +5,14 @@ import { FaMagnifyingGlass } from 'react-icons/fa6';
 import { useSearchParams } from 'react-router-dom';
 
 export default function Search({backend}) {
-  const [searchParams, setSearchParams] = useSearchParams({});
+  const [searchParams, setSearchParams] = useSearchParams({page: 1, filter: ""});
 
   let [maxPage, setMaxPage] = useState(1)
   let [tierlists, setTierlists] = useState([]);
 
   let page = 1;
   if(searchParams.get("page")) {
-    page = searchParams.get("page");
+    page = parseInt(searchParams.get("page"));
   }
 
   let filter = "";
@@ -23,10 +23,16 @@ export default function Search({backend}) {
   let [searchTerm, setSearchTerm] = useState(filter);
 
   const setSearch = (newSearchTerm) => {
-    setSearchParams({filter: newSearchTerm});
-    filter = newSearchTerm; // Needed for loadtierlist to work
+    setSearchParams({page: searchParams.get("page"), filter: newSearchTerm});
+    filter = newSearchTerm;
     loadTierlist();
   };
+
+  const setPage = (newPage) => {
+    setSearchParams({page: newPage, filter: searchParams.get("filter")});
+    page = newPage;
+    loadTierlist();
+  }
 
   const loadTierlist = async () => {
     let url = new URL(backend + "/api/tierlist/search");
@@ -52,7 +58,7 @@ export default function Search({backend}) {
           <button className='icon-button' onClick={()=> {setSearch(searchTerm)}}><FaMagnifyingGlass /></button>
         </div>
       </div>
-      <TierlistPrevList tierlists={tierlists} page={page} maxpage={maxPage}/>
+      <TierlistPrevList tierlists={tierlists} page={page} maxpage={maxPage} setpage={setPage}/>
     </div>
   )
 }

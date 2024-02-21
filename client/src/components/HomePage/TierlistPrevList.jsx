@@ -1,16 +1,14 @@
 import React from 'react'
 import TierlistPreview from './TierlistPreview'
 import "./TierlistPrevList.css";
-import { useSearchParams } from 'react-router-dom';
 
-export default function TierlistPrevList({tierlists, page, maxpage}) {
-  const [searchParams, setSearchParams] = useSearchParams({});
+export default function TierlistPrevList({tierlists, page, maxpage, setpage}) {
 
   const pageUpdate = (newPage) => {
     if(newPage <= 0 || newPage > maxpage) {
       return;
     }
-    setSearchParams({page: newPage});
+    setpage(newPage);
   };
 
   return (
@@ -23,8 +21,8 @@ export default function TierlistPrevList({tierlists, page, maxpage}) {
         <a key='forw2' className= {page + 2 <= maxpage ? '' : 'unavailible'} onClick={() => {pageUpdate(page + 2)}}>{">>"}</a>
       </div>
       <div className='preview-list'>
-        {tierlists.map(tierlist => 
-          <TierlistPreview key={tierlist.name} tierlist={tierlist} />
+        {tierlists.map((tierlist, index) => 
+          <TierlistPreview key={index} tierlist={tierlist} />
         )}
       </div>
       <div key='bottom' className='pagebar'>
