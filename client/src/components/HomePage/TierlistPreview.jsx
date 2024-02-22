@@ -1,7 +1,11 @@
 import React from 'react'
 import "./TierlistPreview.css";
+import Author from '../General/Author';
 
 export default function TierlistPreview({tierlist}) {
+  const author = tierlist.author[0];
+  console.log(tierlist)
+
   return (
     <div key={tierlist.name} className='preview-container' style={{
       backgroundImage: `
@@ -9,7 +13,7 @@ export default function TierlistPreview({tierlist}) {
       url(${tierlist.back_image})`
     }}>
       <a href={"/view/" + tierlist._id}><h2>{tierlist.name}</h2></a>
-      <a href="/">{tierlist.author}</a>
+      <Author data={author}/>
     </div>
   )
 }
