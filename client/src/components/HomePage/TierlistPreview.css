@@ -11,13 +11,6 @@
   background-position: center;
 }
 
-.preview-container > a {
-  color: var(--color-foreground);
-  text-decoration: none;
-}
-.preview-container > a:hover {
-  text-decoration: underline;
-}
 .preview-container > a >  * {
   margin: 0px;
 }

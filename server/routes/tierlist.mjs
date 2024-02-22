@@ -11,10 +11,14 @@ router.get("/latest", async (req, res) => {
   let collection = await db.collection("tierlists");
   let results = await collection.aggregate([
     {
+      $addFields: {
+        author_id: {$toObjectId: '$author'}
+      }
+    }, {
     $lookup: {
       from: 'users',
-      localField: 'author.str',
-      foreignField: '_id.str',
+      localField: 'author_id',
+      foreignField: '_id',
       as: 'author'
     }
   }, {
@@ -50,10 +54,14 @@ router.get("/search", async (req, res) => {
 
   let results = await collection.aggregate([
     {
+      $addFields: {
+        author_id: {$toObjectId: '$author'}
+      }
+    }, {
     $lookup: {
       from: 'users',
-      localField: 'author.str',
-      foreignField: '_id.str',
+      localField: 'author_id',
+      foreignField: '_id',
       as: 'author'
     }
   }, {
@@ -72,8 +80,7 @@ router.get("/search", async (req, res) => {
   },{
     $limit: RESULTS_PER_PAGE
   }
-]).toArray();
-console.log(results);
+  ]).toArray();
   let count = Math.ceil(await collection.countDocuments({
     "name": {$regex: filter, $options: "i"}
   }) / RESULTS_PER_PAGE);
@@ -86,13 +93,17 @@ router.get("/:id", async (req, res) => {
   let oid = new BSON.ObjectId(req.params.id);
   let result = await collection.aggregate([
     {
+      $addFields: {
+        author_id: {$toObjectId: '$author'}
+      }
+    }, {
       $lookup: {
         from: 'users',
-        localField: 'author.str',
-        foreignField: '_id.str',
+        localField: 'author_id',
+        foreignField: '_id',
         as: 'author'
       }
-    },{
+    }, {
       $match: {_id: oid}
     }, {
       $sort: {_id:1}
@@ -117,18 +128,29 @@ router.get("/byuser/:id", async (req, res) => {
     {
       $match: {author: req.params.id}
     },{
+      $addFields: {
+        author_id: {$toObjectId: '$author'}
+      }
+    }, {
       $lookup: {
         from: 'users',
-        localField: 'author.str',
-        foreignField: '_id.str',
+        localField: 'author_id',
+        foreignField: '_id',
         as: 'author'
       }
+    }, {
+      $sort: {_id:1}
     },{
       $skip: skip
+    },{
+      $limit: RESULTS_PER_PAGE
     }
-  ]).next();
+  ]).toArray();
+  let count = Math.ceil(await collection.countDocuments({
+    "author": {$regex: req.params.id}
+  }) / RESULTS_PER_PAGE);
   if (!result) res.send("Not found").status(404);
-  else res.send(result).status(200);
+  else res.send({results: result, maxpage: count}).status(200);
 });
 
 // Add a new document to the collection

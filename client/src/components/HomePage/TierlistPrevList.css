@@ -14,12 +14,6 @@
   margin: 1rem;
 }
 
-.prev-container a {
-  color: var(--color-foreground);
-  text-decoration: none;
-  cursor: pointer;
-}
-
 .find-more {
   display: flex;
   flex-direction: row;
