@@ -4,9 +4,9 @@ import { ReactSortable } from "react-sortablejs";
 import './TierlistComponent.css'
 import Description from './Description';
 import Item from './Item';
+import Author from '../General/Author';
 
 export default function TierlistComponent({tierlist}) {
-
   // Create empty list on indices based on the tierlist
   const [unsortedItems, setUnsortedItems] = useState([]);
   
@@ -49,6 +49,7 @@ export default function TierlistComponent({tierlist}) {
   if(Object.keys(tierlist).length === 0) {
     return <></>;
   }
+  const author = tierlist.author[0];
 
   // Get the load string from the URL /tierlist/:id/?load=[json]
   const params = new URLSearchParams(new URL(document.location).search);
@@ -109,7 +110,7 @@ export default function TierlistComponent({tierlist}) {
     <div className='tierlist-container show'>
       <div className='tierlist-info-container'>
         <h1>{tierlist.name}</h1>
-        <p>{tierlist.author}</p>
+        <div className='tierlist-author-container'><Author data={author} /></div>
         <div className='tierlist-list-container'>
           {tiers.map((tier, index) => 
             <Tier key={index} tierlistData={tierlist} tiers={tiers} setTierData={setTiers} selected={selectedItem} index={index} rename={rename} changeColor={changeColor} moveTier={moveTier} deleteTier={deleteTier} setSelectedCallback={setSelectedCallback}/>

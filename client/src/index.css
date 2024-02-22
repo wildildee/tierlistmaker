@@ -39,7 +39,13 @@ input {
 }
 
 a {
-  color: gray
+  color: var(--color-foreground);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 @keyframes expand-vertical {

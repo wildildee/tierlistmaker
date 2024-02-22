@@ -13,25 +13,32 @@ export default function TierlistPrevList({tierlists, page, maxpage, setpage}) {
 
   return (
     <div className='prev-container'>
+      { maxpage === undefined ? <></> :
       <div key='top' className='pagebar'>
         <a key='back2' className= {page - 2 > 0 ? '' : 'unavailible'} onClick={() => {pageUpdate(page - 2)}}>{"<<"}</a>
         <a key='back1' className= {page - 1 > 0 ? '' : 'unavailible'} onClick={() => {pageUpdate(page - 1)}}>{"<"}</a>
         <input type='number' onChange={(e) => {pageUpdate(e.target.value)}} value={page}></input>
         <a key='forw1' className= {page + 1 <= maxpage ? '' : 'unavailible'} onClick={() => {pageUpdate(page + 1)}}>{">"}</a>
         <a key='forw2' className= {page + 2 <= maxpage ? '' : 'unavailible'} onClick={() => {pageUpdate(page + 2)}}>{">>"}</a>
-      </div>
+      </div>}
       <div className='preview-list'>
         {tierlists.map((tierlist, index) => 
           <TierlistPreview key={index} tierlist={tierlist} />
         )}
       </div>
+      { maxpage === undefined ? <></> :
       <div key='bottom' className='pagebar'>
         <a key='back2' className= {page - 2 > 0 ? '' : 'unavailible'} onClick={() => {pageUpdate(page - 2)}}>{"<<"}</a>
         <a key='back1' className= {page - 1 > 0 ? '' : 'unavailible'} onClick={() => {pageUpdate(page - 1)}}>{"<"}</a>
         <input type='number' onChange={(e) => {pageUpdate(e.target.value)}} value={page}></input>
         <a key='forw1' className= {page + 1 <= maxpage ? '' : 'unavailible'} onClick={() => {pageUpdate(page + 1)}}>{">"}</a>
         <a key='forw2' className= {page + 2 <= maxpage ? '' : 'unavailible'} onClick={() => {pageUpdate(page + 2)}}>{">>"}</a>
+      </div>}
+      { maxpage === undefined ? 
+      <div className='find-more'>
+        <a href="/view">Find more tierlists here</a>
       </div>
+      : <></> }
     </div>
   )
 }

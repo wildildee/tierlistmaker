@@ -4,6 +4,7 @@ import cors from "cors";
 import "./loadenv.mjs";
 import "express-async-errors";
 import tierlist from "./routes/tierlist.mjs";
+import user from "./routes/user.mjs";
 import morgan from "morgan";
 import { fileURLToPath } from 'url';
 
@@ -22,6 +23,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 // Load the api routes
 app.use("/api/tierlist", tierlist);
+app.use("/api/user", user);
 
 app.get('*', function (req, res) {
   console.log();

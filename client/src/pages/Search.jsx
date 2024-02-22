@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 export default function Search({backend}) {
   const [searchParams, setSearchParams] = useSearchParams({page: 1, filter: ""});
 
-  let [maxPage, setMaxPage] = useState(1)
+  let [maxPage, setMaxPage] = useState(1);
   let [tierlists, setTierlists] = useState([]);
 
   let page = 1;

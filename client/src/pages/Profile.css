@@ -1,0 +1,37 @@
+.profile-container {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-foreground);
+  margin: 1rem 4rem;
+  padding: 1rem;
+}
+
+.profile-container h2 {
+  margin: 0px;
+}
+
+.profile-cols {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  gap: 2rem;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-info > img {
+  max-width: 16rem;
+}
+
+.profile-tierlists {
+  width: 100%;
+}
+
+.profile-tierlists .preview-container {
+  gap: 0.5rem;
+}
