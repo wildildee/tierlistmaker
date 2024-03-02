@@ -4,7 +4,6 @@ import Author from '../General/Author';
 
 export default function TierlistPreview({tierlist}) {
   const author = tierlist.author[0];
-  console.log(tierlist)
 
   return (
     <div key={tierlist.name} className='preview-container' style={{
